@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reference Guides - FPGA Documentation Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="sidebar w-56 bg-gradient-to-b from-navy-900 to-navy-800 text-white p-4 shadow-lg relative" id="sidebar">
+            <div class="flex items-center justify-between mb-6">
+                <img src="microchip.png" alt="Microchip Logo" class="logo w-20 sidebar-content">
+                <button id="toggle-sidebar" class="text-white hover:text-gold-400 focus:outline-none transition-colors duration-200">
+                    <svg class="w-6 h-6 sidebar-icon sidebar-icon-close" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <svg class="w-6 h-6 sidebar-icon sidebar-icon-menu hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <h1 class="text-xl font-bold mb-6 text-gray-400 hover:text-navy-900 transition-colors duration-200">FPGA Documentation</h1>
+                <ul>
+                    <li class="mb-4">
+                        <a href="index.html" class="text-base font-medium sidebar-link text-black hover:text-gold-400 transition-colors duration-200">Home</a>
+                        <hr class="sidebar-divider">
+                    </li>
+                    <li class="mb-4">
+                        <span class="text-base font-medium text-black">Hardware</span>
+                        <ul class="ml-4 mt-2">
+                            <li class="mb-2"><a href="hardware-docs.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">Hardware Documentation</a></li>
+                            <li class="mb-2"><a href="app-notes.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">Application Notes</a></li>
+                            <li class="mb-2"><a href="silicon-guides.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">Silicon User Guides</a></li>
+                            <li class="mb-2"><a href="whitepapers.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">Whitepapers</a></li>
+                        </ul>
+                        <hr class="sidebar-divider">
+                    </li>
+                    <li class="mb-4">
+                        <span class="text-base font-medium text-black">Software</span>
+                        <ul class="ml-4 mt-2">
+                            <li class="mb-2"><a href="software-docs.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">Software Documentation</a></li>
+                            <li class="mb-2"><a href="release-notes.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">Release Notes</a></li>
+                            <li class="mb-2"><a href="user-guides.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">User Guides</a></li>
+                        </ul>
+                        <hr class="sidebar-divider">
+                    </li>
+                    <li class="mb-4">
+                        <span class="text-base font-medium text-black">IP</span>
+                        <ul class="ml-4 mt-2">
+                            <li class="mb-2"><a href="ip-user-guides.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">IP User Guides</a></li>
+                            <li class="mb-2"><a href="reference-guides.html" class="text-sm sidebar-link sidebar-active text-black hover:text-gold-400 transition-colors duration-200">Reference Guides</a></li>
+                        </ul>
+                        <hr class="sidebar-divider">
+                    </li>
+                </ul>
+            </div>
+            <div class="resize-handle"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-10 overflow-auto">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <a href="index.html" class="back-button mb-4 inline-flex items-center px-4 py-2 bg-navy-900 text-white text-sm font-medium rounded-md hover:bg-gold-600 transition-colors duration-200">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    Back to Home
+                </a>
+                <h2 class="text-3xl font-bold mb-4 text-navy-900">Reference Guides</h2>
+                <p class="text-lg text-gray-700">Quick reference materials for IP core parameters and configurations.</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microchip FPGA Knowledge Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="sidebar w-56 bg-gradient-to-b from-navy-900 to-navy-800 text-white p-4 shadow-lg relative" id="sidebar">
+            <div class="flex items-center justify-between mb-6">
+                <img src="microchip.png" alt="Microchip Logo" class="logo w-20 sidebar-content">
+                <button id="toggle-sidebar" class="text-white hover:text-gold-400 focus:outline-none transition-colors duration-200">
+                    <svg class="w-6 h-6 sidebar-icon sidebar-icon-close" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <svg class="w-6 h-6 sidebar-icon sidebar-icon-menu hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <h1 class="text-xl font-bold mb-6 text-gray-400 hover:text-navy-900 transition-colors duration-200">Microchip FPGA Knowledge Hub</h1>
+                <ul>
+                    <li class="mb-4">
+                        <a href="index.html" class="text-base font-medium sidebar-link sidebar-active text-black hover:text-gold-400 transition-colors duration-200">Home</a>
+                        <hr class="sidebar-divider">
+                    </li>
+                    <li class="mb-4">
+                        <span class="text-base font-medium text-black">Hardware</span>
+                        <ul class="ml-4 mt-2">
+                            <li class="mb-2"><a href="hardware-docs.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">Hardware Documentation</a></li>
+                            <li class="mb-2"><a href="app-notes.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">Application Notes</a></li>
+                            <li class="mb-2"><a href="silicon-guides.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">Silicon User Guides</a></li>
+                            <li class="mb-2"><a href="whitepapers.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">Whitepapers</a></li>
+                        </ul>
+                        <hr class="sidebar-divider">
+                    </li>
+                    <li class="mb-4">
+                        <span class="text-base font-medium text-black">Software</span>
+                        <ul class="ml-4 mt-2">
+                            <li class="mb-2"><a href="software-docs.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">Software Documentation</a></li>
+                            <li class="mb-2"><a href="release-notes.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">Release Notes</a></li>
+                            <li class="mb-2"><a href="user-guides.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">User Guides</a></li>
+                        </ul>
+                        <hr class="sidebar-divider">
+                    </li>
+                    <li class="mb-4">
+                        <span class="text-base font-medium text-black">IP</span>
+                        <ul class="ml-4 mt-2">
+                            <li class="mb-2"><a href="ip-user-guides.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">IP User Guides</a></li>
+                            <li class="mb-2"><a href="reference-guides.html" class="text-sm sidebar-link text-black hover:text-gold-400 transition-colors duration-200">Reference Guides</a></li>
+                        </ul>
+                        <hr class="sidebar-divider">
+                    </li>
+                </ul>
+            </div>
+            <div class="resize-handle"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-10 overflow-auto">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h2 class="text-4xl font-bold mb-4 text-navy-900 text-center">Welcome to the Microchip FPGA Knowledge Hub</h2>
+                <div class="flex justify-center mb-6">
+                    <div class="search-container animate-searchFadeIn relative w-full max-w-lg flex items-center">
+                        <input type="text" id="search-bar" placeholder="Search for documentation..." class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gold-400 text-gray-700">
+                        <svg class="w-5 h-5 text-gray-500 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div id="search-results" class="mt-4 max-w-lg mx-auto hidden"></div>
+                <p class="text-lg mb-6 text-gray-700 text-center">This portal provides comprehensive documentation for FPGA hardware, software, and intellectual property (IP). Click a tile below to explore resources or use the search bar to find specific documents.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="tile bg-gradient-to-br from-white to-gray-100 p-3 rounded-xl shadow-lg cursor-pointer relative" data-section="hardware-sub">
+                        <h3 class="text-base font-semibold text-navy-900">Hardware</h3>
+                        <p class="text-xs text-gray-600 mb-4">Explore hardware documentation and resources.</p>
+                        <div class="sub-tiles flex flex-col gap-2">
+                            <a href="hardware-docs.html" class="sub-tile cursor-pointer">
+                                <p class="text-xs font-semibold text-navy-700">Hardware Documentation</p>
+                            </a>
+                            <a href="app-notes.html" class="sub-tile cursor-pointer">
+                                <p class="text-xs font-semibold text-navy-700">Application Notes</p>
+                            </a>
+                            <a href="silicon-guides.html" class="sub-tile cursor-pointer">
+                                <p class="text-xs font-semibold text-navy-700">Silicon User Guides</p>
+                            </a>
+                            <a href="whitepapers.html" class="sub-tile cursor-pointer">
+                                <p class="text-xs font-semibold text-navy-700">Whitepapers</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="tile bg-gradient-to-br from-white to-gray-100 p-3 rounded-xl shadow-lg cursor-pointer relative" data-section="software-sub">
+                        <h3 class="text-base font-semibold text-navy-900">Software</h3>
+                        <p class="text-xs text-gray-600 mb-4">Access software documentation and tools.</p>
+                        <div class="sub-tiles flex flex-col gap-2">
+                            <a href="software-docs.html" class="sub-tile cursor-pointer">
+                                <p class="text-xs font-semibold text-navy-700">Software Documentation</p>
+                            </a>
+                            <a href="release-notes.html" class="sub-tile cursor-pointer">
+                                <p class="text-xs font-semibold text-navy-700">Release Notes</p>
+                            </a>
+                            <a href="user-guides.html" class="sub-tile cursor-pointer">
+                                <p class="text-xs font-semibold text-navy-700">User Guides</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="tile bg-gradient-to-br from-white to-gray-100 p-3 rounded-xl shadow-lg cursor-pointer relative" data-section="ip-sub">
+                        <h3 class="text-base font-semibold text-navy-900">IP</h3>
+                        <p class="text-xs text-gray-600 mb-4">View IP user guides and references.</p>
+                        <div class="sub-tiles flex flex-col gap-2">
+                            <a href="ip-user-guides.html" class="sub-tile cursor-pointer">
+                                <p class="text-xs font-semibold text-navy-700">IP User Guides</p>
+                            </a>
+                            <a href="reference-guides.html" class="sub-tile cursor-pointer">
+                                <p class="text-xs font-semibold text-navy-700">Reference Guides</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-6 mb-6">
+                    <div class="whats-new w-full md:w-1/2 bg-gradient-to-br from-white to-gray-100 p-6 rounded-xl shadow-lg animate-pulse-border mx-auto">
+                        <h3 class="text-xl font-semibold text-navy-900 mb-4 border-b-2 border-gold-400 pb-2">What's New</h3>
+                        <div class="flex flex-col gap-4">
+                            <div class="news-card bg-white p-4 rounded-lg shadow-md border-l-4 border-navy-900 animate-highlight-card" style="animation-delay: 0s;">
+                                <div class="flex items-start">
+                                    <svg class="w-6 h-6 mr-3 text-navy-900" fill="none" stroke="var(--navy-900)" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14.541c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path>
+                                    </svg>
+                                    <div>
+                                        <p class="text-base font-semibold text-navy-900">FPGA Design Guides Added</p>
+                                        <p class="text-sm text-gray-700">New optimization guides in Application Notes (July 2025).</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="news-card bg-white p-4 rounded-lg shadow-md border-l-4 border-navy-900 animate-highlight-card" style="animation-delay: 1.67s;">
+                                <div class="flex items-start">
+                                    <svg class="w-6 h-6 mr-3 text-navy-900" fill="none" stroke="var(--navy-900)" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14.541c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path>
+                                    </svg>
+                                    <div>
+                                        <p class="text-base font-semibold text-navy-900">Software Docs Updated</p>
+                                        <p class="text-sm text-gray-700">Latest tool workflows added (June 2025).</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="news-card bg-white p-4 rounded-lg shadow-md border-l-4 border-navy-900 animate-highlight-card" style="animation-delay: 3.34s;">
+                                <div class="flex items-start">
+                                    <svg class="w-6 h-6 mr-3 text-navy-900" fill="none" stroke="var(--navy-900)" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14.541c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path>
+                                    </svg>
+                                    <div>
+                                        <p class="text-base font-semibold text-navy-900">New IP User Guides</p>
+                                        <p class="text-sm text-gray-700">Advanced core integration guides (May 2025).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="community-hub w-full md:w-1/2 bg-gradient-to-br from-white to-gray-100 p-6 rounded-xl shadow-lg animate-pulse-border mx-auto">
+                        <h3 class="text-xl font-semibold text-navy-900 mb-4 border-b-2 border-gold-400 pb-2">Community Hub</h3>
+                        <div class="flex flex-col gap-4">
+                            <a href="https://www.microchip.com/forums" target="_blank" class="community-card bg-white p-4 rounded-lg shadow-md border-l-4 border-navy-900 animate-highlight-card" style="animation-delay: 0s;">
+                                <div class="flex items-start">
+                                    <svg class="w-6 h-6 mr-3 text-navy-900" fill="none" stroke="var(--navy-900)" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 005.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    </svg>
+                                    <div>
+                                        <p class="text-base font-semibold text-navy-900">FPGA Forum Discussion</p>
+                                        <p class="text-sm text-navy-700 hover:text-gold-600">Join our forum on Libero tips.</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="https://x.com/microchiptech" target="_blank" class="community-card bg-white p-4 rounded-lg shadow-md border-l-4 border-navy-900 animate-highlight-card" style="animation-delay: 1.67s;">
+                                <div class="flex items-start">
+                                    <svg class="w-6 h-6 mr-3 text-navy-900" fill="none" stroke="var(--navy-900)" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 005.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    </svg>
+                                    <div>
+                                        <p class="text-base font-semibold text-navy-900">PolarFire SoC on X</p>
+                                        <p class="text-sm text-navy-700 hover:text-gold-600">New post on PolarFire SoC workflows.</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="https://www.microchip.com/en-us/education" target="_blank" class="community-card bg-white p-4 rounded-lg shadow-md border-l-4 border-navy-900 animate-highlight-card" style="animation-delay: 3.34s;">
+                                <div class="flex items-start">
+                                    <svg class="w-6 h-6 mr-3 text-navy-900" fill="none" stroke="var(--navy-900)" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 005.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    </svg>
+                                    <div>
+                                        <p class="text-base font-semibold text-navy-900">Advanced FPGA Webinar</p>
+                                        <p class="text-sm text-navy-700 hover:text-gold-600">Join our webinar on FPGA design (August 2025).</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="resources-container">
+                    <div class="resources-banner bg-gradient-to-br from-white to-gray-100 p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-semibold text-navy-900 mb-4">Other Resources</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <a href="https://www.youtube.com/watch?v=9XEpeQFwVHY" target="_blank" class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-200">
+                                <img src="https://img.youtube.com/vi/9XEpeQFwVHY/mqdefault.jpg" alt="Hello FPGA Kit Demonstration Thumbnail" class="w-full h-32 object-cover rounded-md mb-2">
+                                <p class="text-sm font-semibold text-navy-700 hover:text-gold-600 text-center">Hello FPGA Kit Demonstration</p>
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=BwpUz9nwm8c" target="_blank" class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-200">
+                                <img src="https://img.youtube.com/vi/BwpUz9nwm8c/mqdefault.jpg" alt="PolarFire Development Kits Thumbnail" class="w-full h-32 object-cover rounded-md mb-2">
+                                <p class="text-sm font-semibold text-navy-700 hover:text-gold-600 text-center">PolarFire Development Kits</p>
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=3CG5aToiXBM" target="_blank" class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-200">
+                                <img src="https://img.youtube.com/vi/3CG5aToiXBM/mqdefault.jpg" alt="Developing with PolarFire SoC Thumbnail" class="w-full h-32 object-cover rounded-md mb-2">
+                                <p class="text-sm font-semibold text-navy-700 hover:text-gold-600 text-center">Developing with PolarFire SoC</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Floating Contact Support Button -->
+            <a href="https://www.microchip.com/en-us/support" target="_blank" class="contact-support-button fixed bottom-6 right-6 w-12 h-12 rounded-full bg-white border border-navy-900 flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200 z-50" title="Contact Support">
+                <img src="customer-support.png" alt="Customer Support" class="w-6 h-6 object-contain">
+            </a>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
