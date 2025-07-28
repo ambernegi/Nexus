@@ -71,6 +71,22 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error('Error loading docs.json:', error));
     }
 
+
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const sidebar = document.getElementById('sidebar');
+    const toggleButton = document.getElementById('toggle-sidebar');
+    const closeIcon = toggleButton.querySelector('.sidebar-icon-close');
+    const menuIcon = toggleButton.querySelector('.sidebar-icon-menu');
+
+    toggleButton.addEventListener('click', () => {
+        sidebar.classList.toggle('sidebar-collapsed');
+        closeIcon.classList.toggle('hidden');
+        menuIcon.classList.toggle('hidden');
+    });
+});
+
     // Document list functionality (only on user-guides.html)
     const documentLinks = document.querySelectorAll('.document-link');
     const documentIframe = document.getElementById('document-iframe');
