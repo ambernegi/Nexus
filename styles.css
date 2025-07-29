@@ -50,7 +50,7 @@ body {
 .iframe-container {
     width: 100%;
     height: 700px;
-    border: none;
+    border: 1px solid #e5e7eb; /* border-gray-200 */
     @apply rounded-lg;
 }
 
@@ -105,7 +105,7 @@ body {
 }
 
 .iframe-wrapper {
-    @apply w-4/5;
+    @apply flex-1 p-6 bg-white shadow-lg rounded-lg transition-all duration-300;
 }
 
 .open-tab-button {
@@ -113,7 +113,6 @@ body {
     visibility: visible !important;
     z-index: 10;
     opacity: 1 !important;
-    color: black !important;
 }
 
 .open-tab-button:disabled {
@@ -173,21 +172,23 @@ body {
 }
 
 .document-list {
-    @apply w-1/5 bg-gray-100 rounded-lg p-4 shadow-inner overflow-y-auto max-h-[700px];
+    @apply bg-gray-50 rounded-lg p-4 shadow-inner overflow-y-auto;
+    min-width: 200px;
+    max-width: 400px;
+    max-height: 700px;
 }
 
 #content-container {
     display: flex;
     flex-direction: row;
-    gap: 1.5rem;
+    gap: 0.5rem;
 }
 
 .contact-support-button {
     @apply fixed bottom-6 right-6 w-12 h-12 rounded-full bg-white border border-navy-900 flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200;
     visibility: visible !important;
     z-index: 50;
-    opacity: 0;
-    transform: scale(0);
+    animation: supportButtonFadeIn 0.5s ease-out 4s forwards;
 }
 
 .contact-support-button img {
@@ -203,6 +204,32 @@ body {
 .news-card svg, .community-card svg {
     stroke: var(--navy-900);
     fill: none;
+}
+
+.document-link {
+    @apply flex items-center text-sm font-semibold text-navy-700 bg-white p-3 rounded-lg shadow-sm transition-all duration-200;
+}
+
+.document-link:hover {
+    @apply text-gold-600 bg-gray-100 shadow-md;
+    transform: translateX(4px);
+}
+
+.document-link svg {
+    @apply w-5 h-5 mr-2 flex-shrink-0;
+}
+
+.newly-added {
+    @apply inline-block px-2 py-1 mr-2 text-xs font-bold text-white bg-red-600 rounded;
+    line-height: 1;
+}
+
+.resize-handle-vertical {
+    @apply w-2 bg-gray-300 cursor-col-resize transition-colors duration-200;
+}
+
+.resize-handle-vertical:hover {
+    @apply bg-gray-400;
 }
 
 @keyframes fadeInUp {
