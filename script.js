@@ -1,107 +1,121 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const sidebar = document.getElementById('sidebar');
-    const toggleSidebarButton = document.getElementById('toggle-sidebar');
-    const closeIcon = sidebar.querySelector('.sidebar-icon-close');
-    const menuIcon = sidebar.querySelector('.sidebar-icon-menu');
-    const resizeHandle = sidebar.querySelector('.resize-handle');
+    // Clear localStorage to ensure fresh fetch (for debugging)
+    localStorage.removeItem('docs');
+    console.log('Cleared localStorage for fresh docs.json fetch');
 
-    let isResizing = false;
-
-    // Toggle sidebar visibility
-    toggleSidebarButton.addEventListener('click', () => {
-        sidebar.classList.toggle('sidebar-collapsed');
-        closeIcon.classList.toggle('hidden');
-        menuIcon.classList.toggle('hidden');
-    });
-
-    // Sidebar resizing
-    resizeHandle.addEventListener('mousedown', (e) => {
-        isResizing = true;
-        document.addEventListener('mousemove', resizeSidebar);
-        document.addEventListener('mouseup', stopResizing);
-    });
-
-    function resizeSidebar(e) {
-        if (isResizing) {
-            let newWidth = e.clientX;
-            if (newWidth >= 150 && newWidth <= 400) {
-                sidebar.style.width = `${newWidth}px`;
-            }
+    // Cache docs.json to reduce fetches
+    let cachedDocs = JSON.parse(localStorage.getItem('docs')) || null;
+    const loadDocs = () => {
+        if (cachedDocs) {
+            console.log('Using cached docs.json:', cachedDocs);
+            return Promise.resolve(cachedDocs);
         }
-    }
-
-    function stopResizing() {
-        isResizing = false;
-        document.removeEventListener('mousemove', resizeSidebar);
-        document.removeEventListener('mouseup', stopResizing);
-    }
-
-    // Search functionality (only on index.html)
-    const searchBar = document.getElementById('search-bar');
-    const searchResults = document.getElementById('search-results');
-    if (searchBar && searchResults) {
-        fetch('docs.json')
-            .then(response => response.json())
-            .then(data => {
-                searchBar.addEventListener('input', () => {
-                    const query = searchBar.value.toLowerCase();
-                    searchResults.innerHTML = '';
-                    if (query.length > 0) {
-                        const filteredDocs = data.filter(doc =>
-                            doc.title.toLowerCase().includes(query) ||
-                            doc.description.toLowerCase().includes(query)
-                        );
-                        if (filteredDocs.length > 0) {
-                            searchResults.classList.remove('hidden');
-                            filteredDocs.forEach(doc => {
-                                const resultItem = document.createElement('div');
-                                resultItem.className = 'p-2 border-b border-gray-200 hover:bg-gray-100 cursor-pointer';
-                                resultItem.innerHTML = `<a href="${doc.url}" class="text-navy-700 hover:text-gold-600">${doc.title}</a>`;
-                                searchResults.appendChild(resultItem);
-                            });
-                        } else {
-                            searchResults.classList.remove('hidden');
-                            searchResults.innerHTML = '<div class="p-2 text-gray-500">No results found</div>';
-                        }
-                    } else {
-                        searchResults.classList.add('hidden');
-                    }
-                });
+        console.log('Fetching docs.json from ./docs.json');
+        return fetch('./docs.json')
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Failed to fetch docs.json: ${res.status} ${res.statusText}`);
+                }
+                return res.json();
             })
-            .catch(error => console.error('Error loading docs.json:', error));
-    }
+            .then(data => {
+                console.log('docs.json loaded successfully:', data);
+                localStorage.setItem('docs', JSON.stringify(data));
+                cachedDocs = data;
+                return data;
+            })
+            .catch(err => {
+                console.error('Error loading docs.json:', err);
+                return { sections: {} }; // Fallback to empty object
+            });
+    };
 
+    // Load documents for the current page
+    loadDocs().then(data => {
+        const documentList = document.getElementById('document-list');
+        if (!documentList) {
+            console.warn('No document-list element found on page');
+            return;
+        }
 
+        // Get current page
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        console.log('Current page:', currentPath);
 
+        // Map page to section/subsection
+        const pageMap = {
+            'app-notes.html': { section: 'Hardware', subsection: 'Application Notes' },
+            'user-guides.html': { section: 'Software', subsection: 'User Guides' },
+            'hardware-docs.html': { section: 'Hardware', subsection: 'Hardware Documentation' },
+            'silicon-guides.html': { section: 'Hardware', subsection: 'Silicon User Guides' },
+            'whitepapers.html': { section: 'Hardware', subsection: 'Whitepapers' },
+            'software-docs.html': { section: 'Software', subsection: 'Software Documentation' },
+            'release-notes.html': { section: 'Software', subsection: 'Release Notes' },
+            'ip-user-guides.html': { section: 'IP', subsection: 'IP User Guides' },
+            'reference-guides.html': { section: 'IP', subsection: 'Reference Guides' }
+        };
 
-    document.addEventListener('DOMContentLoaded', () => {
+        const pageInfo = pageMap[currentPath];
+        if (!pageInfo) {
+            console.warn('No pageInfo found for', currentPath);
+            documentList.innerHTML = '<p class="text-gray-700 text-center">No documents available.</p>';
+            return;
+        }
+        console.log('Page info:', pageInfo);
+
+        // Safely access documents
+        const section = data.sections?.[pageInfo.section];
+        if (!section) {
+            console.warn(`Section "${pageInfo.section}" not found in docs.json`);
+            documentList.innerHTML = '<p class="text-gray-700 text-center">No documents available.</p>';
+            return;
+        }
+
+        const subsection = section.subsections?.[pageInfo.subsection];
+        if (!subsection) {
+            console.warn(`Subsection "${pageInfo.subsection}" not found in section "${pageInfo.section}"`);
+            documentList.innerHTML = '<p class="text-gray-700 text-center">No documents available.</p>';
+            return;
+        }
+
+        const documents = subsection.documents || [];
+        console.log(`Documents found for ${pageInfo.section} > ${pageInfo.subsection}:`, documents);
+
+        // Sort by updated_on (latest first)
+        documents.sort((a, b) => new Date(b.updated_on) - new Date(a.updated_on));
+
+        // Render document titles
+        documentList.innerHTML = documents.length > 0
+            ? documents.map(doc => {
+                console.log('Rendering document:', doc.title);
+                return `
+                    <a href="${doc.path}" class="block p-2 hover:bg-gray-100 rounded text-navy-700">
+                        ${doc.title}
+                    </a>
+                `;
+            }).join('')
+            : '<p class="text-gray-700 text-center">No documents available.</p>';
+    }).catch(err => {
+        console.error('Error rendering documents:', err);
+        const documentList = document.getElementById('document-list');
+        if (documentList) {
+            documentList.innerHTML = '<p class="text-gray-700 text-center">Error loading documents.</p>';
+        }
+    });
+
+    // Sidebar toggle logic
     const sidebar = document.getElementById('sidebar');
     const toggleButton = document.getElementById('toggle-sidebar');
-    const closeIcon = toggleButton.querySelector('.sidebar-icon-close');
-    const menuIcon = toggleButton.querySelector('.sidebar-icon-menu');
-
-    toggleButton.addEventListener('click', () => {
-        sidebar.classList.toggle('sidebar-collapsed');
-        closeIcon.classList.toggle('hidden');
-        menuIcon.classList.toggle('hidden');
-    });
-});
-
-    // Document list functionality (only on user-guides.html)
-    const documentLinks = document.querySelectorAll('.document-link');
-    const documentIframe = document.getElementById('document-iframe');
-    const openTabButton = document.getElementById('open-tab-button');
-
-    if (documentLinks.length > 0) {
-        documentLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const url = link.getAttribute('data-url');
-                documentIframe.src = url;
-                openTabButton.href = url;
-                openTabButton.classList.remove('disabled');
-                openTabButton.removeAttribute('disabled');
-            });
+    const closeIcon = toggleButton?.querySelector('.sidebar-icon-close');
+    const menuIcon = toggleButton?.querySelector('.sidebar-icon-menu');
+    if (sidebar && toggleButton && closeIcon && menuIcon) {
+        console.log('Sidebar elements found, attaching toggle event');
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('sidebar-collapsed');
+            closeIcon.classList.toggle('hidden');
+            menuIcon.classList.toggle('hidden');
         });
+    } else {
+        console.warn('Sidebar elements missing:', { sidebar, toggleButton, closeIcon, menuIcon });
     }
 });

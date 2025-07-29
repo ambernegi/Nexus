@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application Notes - FPGA Documentation Portal</title>
+    <title>Microchip FPGA Knowledge Hub - Application Notes</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-gray-50">
@@ -14,7 +14,7 @@
         <div class="sidebar w-56 bg-gradient-to-b from-navy-900 to-navy-800 text-white p-4 shadow-lg relative" id="sidebar">
             <div class="flex items-center justify-between mb-6">
                 <img src="microchip.png" alt="Microchip Logo" class="logo w-20 sidebar-content">
-                <button id="toggle-sidebar" class="text-white hover:text-gold-400 focus:outline-none transition-colors duration-200">
+                <button id="toggle-sidebar" class="bg-black text-white hover:text-gold-400 focus:outline-none transition-colors duration-200 p-1 rounded">
                     <svg class="w-6 h-6 sidebar-icon sidebar-icon-close" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
@@ -24,7 +24,7 @@
                 </button>
             </div>
             <div class="sidebar-content">
-                <h1 class="text-xl font-bold mb-6 text-gray-400 hover:text-navy-900 transition-colors duration-200">FPGA Documentation</h1>
+                <h1 class="text-xl font-bold mb-6 text-gray-400 hover:text-navy-900 transition-colors duration-200">Microchip FPGA Knowledge Hub</h1>
                 <ul>
                     <li class="mb-4">
                         <a href="index.html" class="text-base font-medium sidebar-link text-black hover:text-gold-400 transition-colors duration-200">Home</a>
@@ -63,17 +63,16 @@
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 p-10 overflow-auto">
+        <div class="flex-1 p-10 overflow-auto main-content">
             <div class="bg-white p-8 rounded-lg shadow-md">
-                <a href="index.html" class="back-button mb-4 inline-flex items-center px-4 py-2 bg-navy-900 text-white text-sm font-medium rounded-md hover:bg-gold-600 transition-colors duration-200">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                    Back to Home
-                </a>
-                <h2 class="text-3xl font-bold mb-4 text-navy-900">Application Notes</h2>
-                <p class="text-lg text-gray-700">Practical guides and best practices for implementing specific FPGA designs and optimizations.</p>
+                <h2 class="text-4xl font-bold mb-4 text-navy-900 text-center animate-welcomeFadeIn">Application Notes</h2>
+                <p class="text-lg mb-6 text-gray-700 text-center animate-welcomeFadeIn">Browse available documentation for Application Notes.</p>
+                <div id="document-list" class="mt-4 max-w-lg mx-auto"></div>
             </div>
+            <!-- Floating Contact Support Button -->
+            <a href="https://www.microchip.com/en-us/support" target="_blank" class="contact-support-button animate-supportButtonFadeIn fixed bottom-6 right-6 w-12 h-12 rounded-full bg-white border border-navy-900 flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200 z-50" title="Contact Support">
+                <img src="customer-support.png" alt="Customer Support" class="w-6 h-6 object-contain">
+            </a>
         </div>
     </div>
     <script src="script.js"></script>
