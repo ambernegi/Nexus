@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Clear localStorage to ensure fresh fetch (for debugging)
-    localStorage.removeItem('docs');
-    console.log('Cleared localStorage for fresh docs.json fetch');
+    // Base URL for GitHub Pages
+    const baseUrl = 'https://ambernegi.github.io/FPGAHTML/';
 
     // Cache docs.json to reduce fetches
     let cachedDocs = JSON.parse(localStorage.getItem('docs')) || null;
@@ -84,12 +83,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Sort by updated_on (latest first)
         documents.sort((a, b) => new Date(b.updated_on) - new Date(a.updated_on));
 
-        // Render document titles
+        // Render document titles with base URL prepended
         documentList.innerHTML = documents.length > 0
             ? documents.map(doc => {
-                console.log('Rendering document:', doc.title);
+                const fullPath = `${baseUrl}${doc.path}`;
+                console.log('Rendering document:', doc.title, 'with path:', fullPath);
                 return `
-                    <a href="${doc.path}" class="block p-2 hover:bg-gray-100 rounded text-navy-700">
+                    <a href="${fullPath}" class="block p-2 hover:bg-gray-100 rounded text-navy-700">
                         ${doc.title}
                     </a>
                 `;
