@@ -120,7 +120,7 @@ body {
 }
 
 .back-button {
-    @apply inline-flex items-center px-4 py-2 bg-navy-900 text-white text-sm font-medium rounded-md hover:bg-gold-600 transition-colors duration-200;
+    @apply inline-flex items-center px-4 py-2 bg-navy-900 text-black text-sm font-medium rounded-md hover:bg-gold-600 transition-colors duration-200;
 }
 
 .back-button svg {
@@ -219,10 +219,6 @@ body {
     @apply w-5 h-5 mr-2 flex-shrink-0;
 }
 
-.newly-added {
-    @apply inline-block px-2 py-1 mr-2 text-xs font-bold text-white bg-red-600 rounded;
-    line-height: 1;
-}
 
 .resize-handle-vertical {
     @apply w-2 bg-gray-300 cursor-col-resize transition-colors duration-200;
@@ -316,6 +312,11 @@ body {
         transform: translateY(0);
     }
 }
+
+
+
+
+
 
 .animate-searchFadeIn {
     animation: searchFadeIn 2.5s ease-out forwards;
